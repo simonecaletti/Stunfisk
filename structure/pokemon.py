@@ -70,5 +70,11 @@ class Pokemon:
         self.status = status
         self.nature = nature
         self.stats = get_stats(self.specie, self.lv, self.EVs, self.IVs, self.nature)
+        self.currentHP = self.stats[0]
 
-        
+    def update_hp(self, new_hp):
+        self.currentHP = new_hp
+        return None
+
+
+
