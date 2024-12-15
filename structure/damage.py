@@ -116,6 +116,12 @@ def STAB(mv, pkm):
     else:
         return 1
 
+def type_int_fact(mv, pkm):
+    fact = get_type_interaction(mv.type, pkm.typing[0])
+    if pkm.typing[1] is not None:
+        fact = fact*get_type_interaction(mv.type, pkm.typing[1])
+    return fact
+
 def damage(pkm1, pkm2, move, roll="random"):
     
     mv = Move(move) 
@@ -125,6 +131,8 @@ def damage(pkm1, pkm2, move, roll="random"):
     dmg = dmg*dmg_roll(roll)
     #add STAB
     dmg = dmg*STAB(mv, pkm1)
+    #add type effectiveness
+    dmg = dmg*type_int_fact(mv, pkm2)
 
     return math.floor(dmg)
 
@@ -135,5 +143,9 @@ def damage_list(pkm1, pkm2, move):
 
     #get all roll
     dmg_list = [math.floor(dmg*r) for r in all_dmg_roll()]
+    #add STAB
+    dmg_list = [dmg*STAB(mv, pkm1) for dmg in dmg_list]
+    #add type effectiveness
+    dmg_list = [dmg*type_int_fact(mv, pkm2) for dmg in dmg_list]
 
     return dmg_list
