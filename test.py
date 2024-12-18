@@ -6,7 +6,7 @@ import statistic.calculator as calc
 
 move = "Aerial Ace"
 pkm1 = Pokemon("Chikorita", 50, [move], None, None, [4,252,0,0,0,252], [31,31,31,31,31,31], "adamant", "fire", statsmodifier=[3,0,0,0,0])
-pkm2 = Pokemon("Charmander", 50, [move], None, None, [252,0,252,0,4,0], [31,31,31,31,31,31], "bold", "fire", statsmodifier=[0,1,0,0,1])
+pkm2 = Pokemon("Charmander", 50, [move], None, None, [252,0,252,0,4,0], [31,31,31,31,31,31], "serious", "fire", statsmodifier=[0,1,0,0,0])
 
 #check stats calc
 print("{}, lv ".format(pkm1.specie), pkm1.lv)
@@ -35,10 +35,13 @@ print("dmg rolls: ", dmgall)
 print("")
 
 #check calculator
-print("{} HP before attack: ".format(pkm2.specie), pkm2.currentHP)
-calc.apply_dmg(pkm2, dmg)
-print("{} HP after attack: ".format(pkm2.specie), pkm2.currentHP)
-
+#print("{} HP before attack: ".format(pkm2.specie), pkm2.currentHP)
+#calc.apply_dmg(pkm2, dmg)
+#print("{} HP after attack: ".format(pkm2.specie), pkm2.currentHP)
+n = calc.count_nhko(pkm2.currentHP, dmgmax)
+print("This attack is a potential {}HKO on the target!".format(n))
+prob = calc.get_probability_nhko(pkm2.currentHP, dmgall)*100
+print("The probability to get a {}HKO is: {}%".format(n, prob))
 
 
 
