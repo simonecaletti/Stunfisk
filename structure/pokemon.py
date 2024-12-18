@@ -69,7 +69,7 @@ def get_statsmod_fact(statmod):
     return fact
 
 class Pokemon:
-    def __init__(self, specie, lv,  moves, item, ability, EVs, IVs, nature, teratype, status="healty", statsmodifier=[0, 0, 0, 0, 0], critmod=[], accmod=[]):
+    def __init__(self, specie, lv,  moves, item, ability, EVs, IVs, nature, teratype, status="healty", statsmodifier=[0,0,0,0,0], critmodifier=0, accmodifier=[0,0]):
         self.specie = specie
         self.lv = lv
         self.typing = get_typing(self.specie)
@@ -85,8 +85,8 @@ class Pokemon:
         self.stats = get_stats(self.specie, self.lv, self.EVs, self.IVs, self.nature)
         self.currentHP = self.stats[0]
         self.statsmodifier = statsmodifier
-        self.critmod = critmod
-        self.accmod = accmod
+        self.critmod = critmodifier
+        self.accmod = accmodifier
         self.statsmod = self.apply_statsmodifier()
 
     def update_hp(self, new_hp):
@@ -98,6 +98,4 @@ class Pokemon:
         for stat, mod in zip(self.stats[1:], self.statsmodifier):
             newstats.append(math.floor(stat*get_statsmod_fact(mod)))
         return newstats
-
-
 
