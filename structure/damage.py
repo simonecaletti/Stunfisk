@@ -83,9 +83,9 @@ def base_damage(pkm1, pkm2, move):
     #step2, get move info
     mv = Move(move)
     if mv.category == "physical":
-        dmg = math.floor(dmg*mv.pwr*pkm1.stats[1]/pkm2.stats[2])
+        dmg = math.floor(dmg*mv.pwr*pkm1.statsmod[1]/pkm2.statsmod[2])
     elif mv.category == "special":
-        dmg = math.floor(dmg*mv.pwr*pkm1.stats[3]/pkm2.stats[4])
+        dmg = math.floor(dmg*mv.pwr*pkm1.statsmod[3]/pkm2.statsmod[4])
     else:
         print("No move category, maybe status move")
         return
@@ -133,6 +133,9 @@ def damage(pkm1, pkm2, move, roll="random"):
     dmg = dmg*STAB(mv, pkm1)
     #add type effectiveness
     dmg = dmg*type_int_fact(mv, pkm2)
+    #add burn 
+    if pkm1.status == "burn" and mv.category == "physical":
+        dmg = dmg*0.5
 
     return math.floor(dmg)
 
@@ -147,5 +150,11 @@ def damage_list(pkm1, pkm2, move):
     dmg_list = [dmg*STAB(mv, pkm1) for dmg in dmg_list]
     #add type effectiveness
     dmg_list = [dmg*type_int_fact(mv, pkm2) for dmg in dmg_list]
+    #add burn
+    if pkm1.status == "burn" and mv.category == "physical":
+        dmg_list = [dmg*0.5 for dmg in dmg_list]
 
+    #final floor
+    dmg_list = [math.floor(dmg) for dmg in dmg_list]
+    
     return dmg_list

@@ -3,6 +3,7 @@
 from structure.statistics import get_hp, get_stat, get_nature
 import sqlite3
 import os
+import math
 
 path = "./database/pokedex/"
 pkmdb = ["kanto.db", "johto.db"]
@@ -54,9 +55,21 @@ def get_stats(pokemon, lv, EVs, IVs, nature):
 
     return stats
 
+def get_statsmod_fact(statmod):
+    num = 2
+    den = 2
+
+    if statmod >= 0:
+        num += statmod
+    else:
+        den += -1*statmod
+    
+    fact = num/den
+
+    return fact
 
 class Pokemon:
-    def __init__(self, specie, lv,  moves, item, ability, EVs, IVs, nature, teratype, status="healty"):
+    def __init__(self, specie, lv,  moves, item, ability, EVs, IVs, nature, teratype, status="healty", statsmodifier=[0, 0, 0, 0, 0], critmod=[], accmod=[]):
         self.specie = specie
         self.lv = lv
         self.typing = get_typing(self.specie)
@@ -71,10 +84,20 @@ class Pokemon:
         self.nature = nature
         self.stats = get_stats(self.specie, self.lv, self.EVs, self.IVs, self.nature)
         self.currentHP = self.stats[0]
+        self.statsmodifier = statsmodifier
+        self.critmod = critmod
+        self.accmod = accmod
+        self.statsmod = self.apply_statsmodifier()
 
     def update_hp(self, new_hp):
         self.currentHP = new_hp
         return None
+
+    def apply_statsmodifier(self):
+        newstats = [self.stats[0]]
+        for stat, mod in zip(self.stats[1:], self.statsmodifier):
+            newstats.append(math.floor(stat*get_statsmod_fact(mod)))
+        return newstats
 
 
 
