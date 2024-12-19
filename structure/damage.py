@@ -108,7 +108,7 @@ def all_dmg_roll():
     return [x/100 for x in range(85, 101, 1)]
 
 def STAB(mv, pkm):
-    if mv.type == pkm.typing:
+    if mv.type in pkm.typing:
         if pkm.ability == "adaptability":
             return 2
         else:
