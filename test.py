@@ -7,7 +7,7 @@ import time
 
 move = "Aerial Ace"
 pkm1 = Pokemon("Pidgeotto", 50, [move], None, None, [4,252,0,0,0,252], [31,31,31,31,31,31], "adamant", "fire", statsmodifier=[1,0,0,0,0])
-pkm2 = Pokemon("Raticate", 50, [move], None, None, [252,0,252,0,4,0], [31,31,31,31,31,31], "serious", "fire", statsmodifier=[0,0,0,0,0])
+pkm2 = Pokemon("Raticate", 75, [move], None, None, [252,0,252,0,4,0], [31,31,31,31,31,31], "serious", "fire", statsmodifier=[0,0,0,0,0])
 
 start_time = time.time()
 

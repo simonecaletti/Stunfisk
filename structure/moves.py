@@ -45,9 +45,27 @@ class Move:
     def __init__(self, name):
         self.name = name
         self.pwr = get_mv_pwr(name)
-        #self.sec_eff = 
+        #self.sec_eff = {chance}
         self.type = get_mv_type(name)
         self.category = get_mv_category(name)
         self.priority = get_mv_priority(name)
+
+#def ApplySecondaryEffect(chance, effect):
+#    # effect = {boost: {spd: -2}}
+#    # effect = {status: paralisys}
+#    # effect = {}
+#
+#    for eff in effect.keys:
+#        match eff:
+#            case boost:
+#                # apply boost
+#            case status:
+#                # apply status
+#            case _:
+#                return None
+
+
+
+
 
 
